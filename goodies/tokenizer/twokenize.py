@@ -9,8 +9,10 @@ statistical learning with in-the-loop human evaluation :)
 
 __author__ = "brendan o'connor (anyall.org)"
 
-import re, sys
-import tokenizer.emoticons
+import re
+import sys
+
+import goodies.tokenizer.emoticons
 
 mycompile = lambda pat: re.compile(pat, re.UNICODE)
 
@@ -82,7 +84,7 @@ Decorations = r' [  ♫   ]+ '.replace(' ', '')
 EmbeddedApostrophe = r"\S+'\S+"
 
 ProtectThese = [
-    tokenizer.emoticons.Emoticon,
+    goodies.tokenizer.emoticons.Emoticon,
     Url,
     Entity,
     Timelike,

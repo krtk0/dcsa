@@ -14,7 +14,7 @@ mycompile = lambda pat: re.compile(pat, re.UNICODE)
 NormalEyes = r'[:=]'
 Wink = r'[;]'
 
-NoseArea = r'(|o|O|-)'  ## rather tight precision, \S might be reasonable...
+NoseArea = r'(|o|O|-)'  # rather tight precision, \S might be reasonable...
 
 HappyMouths = r'[D\)\]]'
 SadMouths = r'[\(\[]'

@@ -47,7 +47,7 @@ class TweetsGetter:
         with open('../output_files/tweets.txt', 'w') as file:
             count = 0
             for tweet in tqdm(tweet_iter):
-                if count > num_of_tweets:
+                if count >= num_of_tweets:
                     break
                 file.write(tweet["text"] + '\n\n')
                 count += 1

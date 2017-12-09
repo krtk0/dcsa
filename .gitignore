@@ -2,3 +2,4 @@ settings.txt
 .idea/
 output_files/
 *__pycache__/
+src/test.py

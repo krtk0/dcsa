@@ -36,18 +36,18 @@ class TweetsGetter:
         params = cls._get_settings('../settings.txt')
         auth = OAuth(params["access_token_key"], params["access_token_secret"], params["api_key"], params["api_secret"])
         stream = TwitterStream(auth=auth)
-        logging.info('stream: {}'.format(stream))
-
         tweet_iter = stream.statuses.filter(
             locations=geo,
             languages=lang
         )
-        logging.info('tweet_iter: {}'.format(tweet_iter))
 
-        with open('../output_files/tweets.txt', 'w') as file:
-            count = 0
-            for tweet in tqdm(tweet_iter):
-                if count >= num_of_tweets:
-                    break
-                file.write(tweet["text"] + '\n\n')
-                count += 1
+        with open('../output_files/tweets.txt', 'w') as tweets:
+            with open('../output_files/hashtags.txt', 'w') as hashtags:
+                count = 0
+                for tweet in tqdm(tweet_iter):
+                    if count > num_of_tweets:
+                        break
+                    tweets.write(str(tweet) + "\n\n")
+                    for ht in tweet["entities"]["hashtags"]:
+                        hashtags.write(ht["text"].lower() + ", ")
+                    count += 1

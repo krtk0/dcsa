@@ -2,6 +2,7 @@
 
 from twitter import OAuth, TwitterStream
 from tqdm import tqdm
+from nltk.tokenize import TweetTokenizer
 import logging
 
 __author__ = "Yevhen Dukhno"
@@ -32,6 +33,8 @@ class TweetsGetter:
         :param lang: languages of the needed tweets
         :param geo: location of needed tweets
         Writes tweet-messages into the file PROJECT_LOCATION/output_files/tweets.txt
+        Writes hashtags from collected tweets into the file PROJECT_LOCATION/output_files/hashtags.txt
+        :return {tweets: list of words from tokenized tweets, hashtags: list of hashtags from collected tweets}
         """
         params = cls._get_settings('../settings.txt')
         auth = OAuth(params["access_token_key"], params["access_token_secret"], params["api_key"], params["api_secret"])
@@ -40,14 +43,17 @@ class TweetsGetter:
             locations=geo,
             languages=lang
         )
-
-        with open('../output_files/tweets.txt', 'w') as tweets:
-            with open('../output_files/hashtags.txt', 'w') as hashtags:
+        result = {"tweets": [], "hashtags": []}
+        with open("../output_files/tweets.txt", "w") as tweets:
+            with open("../output_files/hashtags.txt", "w") as hashtags:
                 count = 0
                 for tweet in tqdm(tweet_iter):
                     if count > num_of_tweets:
                         break
                     tweets.write(str(tweet) + "\n\n")
+                    result["tweets"].extend(TweetTokenizer().tokenize(tweet["text"].lower()))
                     for ht in tweet["entities"]["hashtags"]:
                         hashtags.write(ht["text"].lower() + ", ")
+                        result["hashtags"].append(ht["text"].lower())
                     count += 1
+        return result

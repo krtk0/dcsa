@@ -50,10 +50,33 @@ class TweetsGetter:
                 for tweet in tqdm(tweet_iter):
                     if count > num_of_tweets:
                         break
-                    tweets.write(str(tweet) + "\n\n")
-                    result["tweets"].extend(TweetTokenizer().tokenize(tweet["text"].lower()))
+                    # tweets.write(str(tweet) + "\n\n")
+                    new_tweet = TweetTokenizer().tokenize(tweet["text"].lower())
+                    result["tweets"].extend(new_tweet)
+                    for word in new_tweet:
+                        tweets.write(word + " ")
                     for ht in tweet["entities"]["hashtags"]:
-                        hashtags.write(ht["text"].lower() + ", ")
+                        hashtags.write(ht["text"].lower() + " ")
                         result["hashtags"].append(ht["text"].lower())
                     count += 1
         return result
+
+    @classmethod
+    def get_from_file(cls, tweets=None, hashtags=None):
+        """
+        Get a list of tokenized tweets or hashtags from file. Exactly one of tweets or hashtags param should be True
+        :param tweets: set True to get tweets
+        :param hashtags: set True to get hashtags
+        :return: list of str
+        """
+        if tweets:
+            filename = "tweets"
+            hashtags = False
+        if hashtags:
+            filename = "hashtags"
+
+        with open("../output_files/{}.txt".format(filename), "r") as file:
+            output = ""
+            for line in file:
+                output += line
+        return output.split(" ")

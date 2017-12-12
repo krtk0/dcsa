@@ -1,6 +1,5 @@
 from mrjob.job import MRJob
 import re
-import logging
 
 WORD_RE = re.compile(r"[\w']+")
 

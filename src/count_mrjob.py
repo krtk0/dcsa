@@ -1,14 +1,14 @@
-from src.twitter_app import TweetsGetter
 from mrjob.job import MRJob
+import re
 import logging
 
-tweets = TweetsGetter.get_from_file(tweets=True)
+WORD_RE = re.compile(r"[\w']+")
 
 
-class TweetMRJob(MRJob):
+class CountMRJob(MRJob):
 
     def mapper(self, _, line):
-        for word in tweets:
+        for word in WORD_RE.findall(line):
             yield (word.lower(), 1)
 
     def combiner(self, word, counts):
@@ -19,4 +19,4 @@ class TweetMRJob(MRJob):
 
 
 if __name__ == '__main__':
-    TweetMRJob.run()
+    CountMRJob.run()

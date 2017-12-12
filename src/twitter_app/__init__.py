@@ -34,7 +34,6 @@ class TweetsGetter:
         :param geo: location of needed tweets
         Writes tweet-messages into the file PROJECT_LOCATION/output_files/tweets.txt
         Writes hashtags from collected tweets into the file PROJECT_LOCATION/output_files/hashtags.txt
-        :return {tweets: list of words from tokenized tweets, hashtags: list of hashtags from collected tweets}
         """
         params = cls._get_settings('../settings.txt')
         auth = OAuth(params["access_token_key"], params["access_token_secret"], params["api_key"], params["api_secret"])
@@ -43,7 +42,6 @@ class TweetsGetter:
             locations=geo,
             languages=lang
         )
-        result = {"tweets": [], "hashtags": []}
         with open("../output_files/tweets.txt", "w") as tweets:
             with open("../output_files/hashtags.txt", "w") as hashtags:
                 count = 0
@@ -52,14 +50,11 @@ class TweetsGetter:
                         break
                     # tweets.write(str(tweet) + "\n\n")
                     new_tweet = TweetTokenizer().tokenize(tweet["text"].lower())
-                    result["tweets"].extend(new_tweet)
                     for word in new_tweet:
                         tweets.write(word + " ")
                     for ht in tweet["entities"]["hashtags"]:
                         hashtags.write(ht["text"].lower() + " ")
-                        result["hashtags"].append(ht["text"].lower())
                     count += 1
-        return result
 
     @classmethod
     def get_from_file(cls, tweets=None, hashtags=None):

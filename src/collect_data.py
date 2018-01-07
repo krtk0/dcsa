@@ -6,7 +6,7 @@ from nltk.tokenize import TweetTokenizer
 import logging
 import re
 
-__author__ = "Yevhen Dukhno"
+__author__ = "Lauri Anton, Yevhen Dukhno"
 
 # Enable logging
 logger = logging.getLogger()

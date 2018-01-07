@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from mrjob.job import MRJob, MRStep
 import re
 
+__author__ = "Lauri Anton, Yevhen Dukhno"
 
 WORD_RE = re.compile(r"[\w']+")
 

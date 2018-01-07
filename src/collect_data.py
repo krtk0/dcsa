@@ -49,7 +49,7 @@ class TweetsGetter:
     @classmethod
     def harvest_tweets(cls, num_of_tweets, lang, geo):
         """
-        Get text of the tweets in specific language and location
+        Get tokenized text of the tweets and hashtags in specific language and location
         :param num_of_tweets: number of needed tweets
         :param lang: languages of the needed tweets
         :param geo: location of needed tweets

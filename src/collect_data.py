@@ -80,26 +80,6 @@ class TweetsGetter:
                         hashtags.write(ht["text"].lower() + " ")
                     count += 1
 
-    @classmethod
-    def get_from_file(cls, tweets=None, hashtags=None):
-        """
-        Get a list of tokenized tweets or hashtags from file. Exactly one of tweets or hashtags param should be True
-        :param tweets: set True to get tweets
-        :param hashtags: set True to get hashtags
-        :return: list of str
-        """
-        if tweets:
-            filename = "tweets"
-            hashtags = False
-        if hashtags:
-            filename = "hashtags"
-
-        with open("../output_files/{}.txt".format(filename), "r") as file:
-            output = ""
-            for line in file:
-                output += line
-        return output.split(" ")
-
 
 if __name__ == '__main__':
     TweetsGetter.harvest_tweets(num_of_tweets=20000, lang='en', geo='-122.995004,32.323198,-67.799695,49.893813')

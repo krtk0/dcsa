@@ -12,6 +12,8 @@ __author__ = "Lauri Anton, Yevhen Dukhno"
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+
+# url_pattern is taken from “Liberal, Accurate Regex Pattern for Matching Web URLs" [7]
 url_pattern = r"""(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop
               |info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax
               |az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|
